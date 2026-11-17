@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "eval": "tsx eval/5-index.ts",
-    "agent": "tsx agent/7-index.ts"
+    "agent": "tsx agent/7-index.ts",
+    "grocery": "tsx grocery/run.ts"
   },
   "devDependencies": {
     "@types/node": "^25.3.5",

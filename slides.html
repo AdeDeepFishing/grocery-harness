@@ -5,170 +5,149 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Grocery harness</title>
 <style>
-  :root {
-    --bg:#fdf8f3; --card:#ffffff; --ink:#2b2a33; --mute:#77748a; --line:#ece4dc;
-    --mint:#d9f2e6; --mint-ink:#1f7a55; --rose:#fde1e1; --rose-ink:#b8403f;
-    --butter:#fdf0c8; --butter-ink:#8a6400; --lilac:#e9e3fb; --lilac-ink:#5b47a8; --sky:#dcedfb;
-  }
+  :root { --bg:#fffdf9; --ink:#141414; --mute:#77736b; --line:#d9d4ca; --wrong:#c0392b; --right:#1e7d4f; --mark:#ffe98a; }
   * { box-sizing:border-box; }
   html, body { height:100%; margin:0; }
   body { background:var(--bg); color:var(--ink); font-family:-apple-system,"Helvetica Neue","Hiragino Sans",sans-serif; overflow:hidden; }
-  .slide { position:absolute; inset:0; display:none; flex-direction:column; justify-content:center; padding:5vh 7vw 9vh; gap:3vh; }
+  .slide { position:absolute; inset:0; display:none; flex-direction:column; justify-content:center; padding:6vh 8vw 10vh; gap:4vh; }
   .slide.on { display:flex; }
-  .kicker { font-size:clamp(14px,1.6vw,22px); letter-spacing:.08em; text-transform:uppercase; color:var(--lilac-ink); font-weight:600; }
-  h1 { font-size:clamp(34px,6vw,92px); line-height:1.05; margin:0; letter-spacing:-.02em; text-wrap:balance; }
-  h2 { font-size:clamp(28px,4.2vw,64px); line-height:1.1; margin:0; letter-spacing:-.015em; text-wrap:balance; }
-  p, li { font-size:clamp(18px,2.1vw,30px); line-height:1.4; margin:0; }
-  .mute { color:var(--mute); }
-  .row { display:grid; gap:2.4vw; }
-  .two { grid-template-columns:1fr 1fr; } .three { grid-template-columns:repeat(3,1fr); }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:2.6vh 2vw; min-width:0; }
-  .card h3 { margin:0 0 1.2vh; font-size:clamp(15px,1.5vw,22px); color:var(--mute); font-weight:600; }
-  pre { margin:0; font:clamp(15px,1.55vw,23px)/1.55 ui-monospace,Menlo,monospace; white-space:pre-wrap; }
-  .hl { background:var(--butter); border-radius:6px; padding:0 .25em; }
-  .bad { background:var(--rose); color:var(--rose-ink); border-radius:6px; padding:0 .25em; font-weight:600; }
-  .good { background:var(--mint); color:var(--mint-ink); border-radius:6px; padding:0 .25em; font-weight:600; }
-  .big { font-size:clamp(48px,8vw,128px); font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
-  .tint-butter { background:var(--butter); border-color:transparent; } .tint-butter .big { color:var(--butter-ink); }
-  .tint-rose { background:var(--rose); border-color:transparent; } .tint-rose .big { color:var(--rose-ink); }
-  .tint-mint { background:var(--mint); border-color:transparent; } .tint-mint .big { color:var(--mint-ink); }
-  .tint-lilac { background:var(--lilac); border-color:transparent; } .tint-sky { background:var(--sky); border-color:transparent; }
-  .step b { display:block; font-size:clamp(20px,2.4vw,34px); margin-bottom:.6vh; }
-  .step span { font-size:clamp(15px,1.6vw,23px); color:var(--ink); opacity:.8; line-height:1.35; display:block; }
-  .num { display:inline-grid; place-items:center; width:1.7em; height:1.7em; border-radius:50%; background:var(--card); font-weight:700; margin-bottom:1.2vh; font-size:clamp(16px,1.7vw,24px); }
-  ul { margin:0; padding-left:1.1em; display:grid; gap:1.1vh; }
-  table { width:100%; border-collapse:collapse; }
-  th { text-align:left; font-size:clamp(13px,1.3vw,19px); color:var(--mute); font-weight:500; padding:0 1vw 1vh 0; }
-  td { padding:1vh 1vw 1vh 0; font-size:clamp(15px,1.6vw,23px); border-top:1px solid var(--line); }
-  td:first-child { font-family:ui-monospace,Menlo,monospace; font-size:clamp(13px,1.35vw,20px); white-space:nowrap; }
-  .bar { position:relative; height:clamp(26px,3.6vh,40px); background:#f3ede6; border-radius:10px; overflow:hidden; }
-  .bar i { position:absolute; inset:0 auto 0 0; border-radius:10px; }
-  .bar b { position:relative; padding-left:.6em; line-height:clamp(26px,3.6vh,40px); font-variant-numeric:tabular-nums; }
-  .says { background:#f7dc8a; } .before { background:#f5b5b3; } .after { background:#a5dfc3; }
-  footer { position:fixed; left:7vw; right:7vw; bottom:3vh; display:flex; justify-content:space-between; color:var(--mute); font-size:clamp(12px,1.2vw,17px); }
-  a { color:var(--lilac-ink); }
+  h1, h2, blockquote { font-family:ui-serif,"New York","Iowan Old Style",Georgia,serif; font-weight:500; margin:0; letter-spacing:-.01em; }
+  h1 { font-size:clamp(34px,5.6vw,88px); line-height:1.08; max-width:18ch; }
+  h2 { font-size:clamp(28px,4vw,60px); line-height:1.12; max-width:24ch; }
+  p, li { font-size:clamp(18px,2vw,30px); line-height:1.45; margin:0; max-width:60ch; }
+  .small { font-size:clamp(15px,1.5vw,22px); color:var(--mute); }
+  pre { margin:0; font:clamp(15px,1.6vw,24px)/1.6 ui-monospace,"SF Mono",Menlo,monospace; white-space:pre-wrap; }
+  mark { background:var(--mark); color:inherit; padding:0 .15em; }
+  .wrong { color:var(--wrong); } .right { color:var(--right); }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:5vw; align-items:start; }
+  .cols > * { min-width:0; }
+  .cols > * + * { border-left:1px solid var(--line); padding-left:5vw; }
+  .label { font-size:clamp(13px,1.3vw,19px); color:var(--mute); margin:0 0 1.4vh; }
+  blockquote { font-size:clamp(24px,3.2vw,48px); line-height:1.2; font-style:italic; }
+  ol, ul { margin:0; padding-left:1.2em; display:grid; gap:1.6vh; }
+  ol li { padding-left:.4em; }
+  ol.steps li { font-size:clamp(22px,2.8vw,42px); line-height:1.25; }
+  ol.steps span { display:block; font-size:clamp(16px,1.7vw,25px); color:var(--mute); margin-top:.4vh; }
+  table { border-collapse:collapse; width:100%; }
+  th { text-align:right; font-size:clamp(13px,1.3vw,19px); color:var(--mute); font-weight:400; padding:0 0 1.4vh 2vw; }
+  th:first-child { text-align:left; padding-left:0; }
+  td { text-align:right; padding:1.5vh 0 1.5vh 2vw; border-top:1px solid var(--line); font-size:clamp(20px,2.5vw,38px); font-variant-numeric:tabular-nums; }
+  td:first-child { text-align:left; padding-left:0; font:clamp(15px,1.6vw,24px) ui-monospace,"SF Mono",Menlo,monospace; }
+  td.right { font-weight:600; }
+  .wrap { overflow-x:auto; }
+  footer { position:fixed; right:8vw; bottom:4vh; color:var(--mute); font-size:clamp(12px,1.1vw,16px); font-variant-numeric:tabular-nums; }
+  a { color:inherit; }
   @media (max-width:760px) {
     body { overflow:auto; } .slide { position:static; display:flex; min-height:100vh; padding:32px 16px 48px; }
-    .two, .three { grid-template-columns:1fr; } footer { display:none; } .wrap { overflow-x:auto; } table { min-width:560px; }
+    .cols { grid-template-columns:1fr; gap:28px; } .cols > * + * { border-left:0; padding-left:0; border-top:1px solid var(--line); padding-top:28px; }
+    footer { display:none; } table { min-width:520px; }
   }
 </style>
 </head>
 <body>
 
 <section class="slide on">
-  <div class="kicker">+81 Builders · Agent Harness Build Night</div>
-  <h1>Don't let the agent mark its own homework.</h1>
-  <p class="mute">A harness for one small job: turn a meal plan and pantry notes into a grocery list.</p>
-  <p><b>Yanwen Chen · Beichun Qi</b></p>
+  <h1>We asked a model to write our grocery list. Then we asked if it was sure.</h1>
+  <p class="small">Yanwen Chen and Beichun Qi · +81 Builders, 17 November 2026</p>
 </section>
 
 <section class="slide">
-  <div class="kicker">The job</div>
-  <h2>Looks easy. It is four jobs at once.</h2>
-  <div class="row two">
-    <div class="card"><h3>Meal plan (3 of 5 meals use flour)</h3>
+  <h2>What we gave it</h2>
+  <div class="cols">
+    <div><p class="label">A week of baking, five recipes</p>
 <pre>Pancakes
-- <span class="hl">200 g flour</span>
-- 2 eggs …
+- <mark>200 g flour</mark>
+- 2 eggs
+- milk, 300 ml
 
 Banana bread
-- <span class="hl">flour, 250 g</span> …
+- <mark>flour, 250 g</mark>
+- 3 bananas
 
 Shortbread
-- <span class="hl">300 g flour</span> …</pre></div>
-    <div class="card"><h3>Pantry notes</h3>
-<pre>- <span class="hl">flour: 1 kg bag, half used</span>
+- <mark>300 g flour</mark>
+- butter, 200 g</pre></div>
+    <div><p class="label">What's in the kitchen</p>
+<pre>- <mark>flour: 1 kg bag, half used</mark>
 - eggs: 10
 - sugar: a little
+- bananas: 2
 - baking powder: 1 tin</pre>
-      <p style="margin-top:2.4vh">Read · add up · convert · subtract<br><span class="mute">750 g needed − 500 g at home = buy 250 g</span></p>
+      <p style="margin-top:4vh">Flour: 750 g needed, 500 g at home.<br>The list should say 250 g.</p>
     </div>
   </div>
 </section>
 
 <section class="slide">
-  <div class="kicker">The failure</div>
-  <h2>We asked: “Is this list completely correct?”</h2>
-  <div class="row two">
-    <div class="card"><h3>gemma-4-31b-it, one call</h3>
-<pre>sugar    350 g
-egg      1 pcs
-banana   1 pcs
-<span class="bad">flour    — not on the list</span>
-<span class="bad">cream    — not on the list</span></pre>
-      <p style="margin-top:2.4vh">“Yes. All quantities were calculated by subtracting pantry stocks from total requirements.”</p>
-    </div>
-    <div class="row" style="align-content:center">
-      <div class="card tint-butter"><p>Says it is sure</p><div class="big">7/10</div></div>
-      <div class="card tint-rose"><p>Actually correct</p><div class="big">5/10</div></div>
+  <h2>What we got back</h2>
+  <div class="cols">
+    <div><p class="label">gemma-4-31b-it, one call</p>
+<pre>sugar     350 g
+egg       1
+banana    1
+<span class="wrong">flour     not on the list
+cream     not on the list</span></pre></div>
+    <div>
+      <p class="label">“Is this list completely correct?”</p>
+      <blockquote>“Yes. All quantities were calculated by subtracting pantry stocks from total requirements.”</blockquote>
     </div>
   </div>
+  <p>Over ten meal plans it said it was sure seven times. It was right five times.</p>
 </section>
 
 <section class="slide">
-  <div class="kicker">What we built</div>
-  <h2>The model reads. Code checks. Code counts.</h2>
-  <div class="row three">
-    <div class="card tint-lilac step"><div class="num">1</div><b>Ledger, not a list</b><span>The model may not do any maths. For each ingredient it copies the exact lines it found, from the plan and from the pantry.</span></div>
-    <div class="card tint-sky step"><div class="num">2</div><b>Verify against the source</b><span>Code checks every quote is real and nothing was skipped. Problems go back to the model, up to 3 rounds.</span></div>
-    <div class="card tint-mint step"><div class="num">3</div><b>Code does the arithmetic</b><span>Add the uses, subtract the stock. 750 − 500 = 250, every time.</span></div>
-  </div>
-  <p class="mute">Same model, same rules in the prompt. Only the layer around it changed.</p>
+  <h2>So we stopped letting it do the maths.</h2>
+  <ol class="steps">
+    <li>The model copies out every line it used.<span>From the recipes and from the kitchen notes, word for word.</span></li>
+    <li>Code compares the copies with the original.<span>Anything wrong goes back to the model, up to three times.</span></li>
+    <li>Code adds and subtracts.<span>750 − 500 = 250.</span></li>
+  </ol>
+  <p class="small">Same model and the same instructions as before.</p>
 </section>
 
 <section class="slide">
-  <div class="kicker">Inside the verifier</div>
-  <h2>Six checks. None of them know the answer.</h2>
-  <div class="row two">
-    <div class="card"><h3>One ledger line</h3>
-<pre>item: "flour"   unit: "g"
-uses:
-  "200 g flour"    → 200
-  "flour, 250 g"   → 250
-  "300 g flour"    → 300
-have:
-  "flour: 1 kg bag, half used" → 500</pre></div>
+  <h2>What the code checks</h2>
+  <div class="cols">
+    <div><p class="label">What the model hands in for flour</p>
+<pre>uses
+  "200 g flour"      200
+  "flour, 250 g"     250
+  "300 g flour"      300
+have
+  "flour: 1 kg bag, half used"   500</pre></div>
     <ul>
-      <li>Every quote is a real line in the plan</li>
-      <li>Every plan line is used exactly once</li>
-      <li>The number matches the number in the quote</li>
-      <li>No ingredient appears twice</li>
-      <li>A pantry note is never ignored</li>
-      <li>“almost out” counts as zero</li>
+      <li>Is every quote really in the recipes?</li>
+      <li>Was every recipe line used, once?</li>
+      <li>Does the number match the quote?</li>
+      <li>Is any ingredient listed twice?</li>
+      <li>Was a kitchen note ignored?</li>
+      <li>“Almost out” has to count as zero.</li>
     </ul>
   </div>
-  <p class="mute">They only need the source text, so they work on any meal plan, not just our test set.</p>
+  <p class="small">None of these needs the right answer, only the original text.</p>
 </section>
 
 <section class="slide">
-  <div class="kicker">Results · 10 meal plans per model</div>
-  <h2>Same harness, five models.</h2>
+  <h2>Five models, ten meal plans each</h2>
   <div class="wrap"><table>
-    <tr><th>Model</th><th>Says “it's correct”</th><th>Actually correct</th><th>With the harness</th></tr>
-    <tr><td>gemma-4-31b-it</td><td><div class="bar"><i class="says" style="width:70%"></i><b>7/10</b></div></td><td><div class="bar"><i class="before" style="width:50%"></i><b>5/10</b></div></td><td><div class="bar"><i class="after" style="width:100%"></i><b>10/10</b></div></td></tr>
-    <tr><td>gpt-oss-120b</td><td><div class="bar"><i class="says" style="width:70%"></i><b>7/10</b></div></td><td><div class="bar"><i class="before" style="width:70%"></i><b>7/10</b></div></td><td><div class="bar"><i class="after" style="width:100%"></i><b>10/10</b></div></td></tr>
-    <tr><td>qwen3.6-27b</td><td><div class="bar"><i class="says" style="width:100%"></i><b>10/10</b></div></td><td><div class="bar"><i class="before" style="width:90%"></i><b>9/10</b></div></td><td><div class="bar"><i class="after" style="width:100%"></i><b>10/10</b></div></td></tr>
-    <tr><td>deepseek-v4.1-flash</td><td><div class="bar"><i class="says" style="width:100%"></i><b>10/10</b></div></td><td><div class="bar"><i class="before" style="width:100%"></i><b>10/10</b></div></td><td><div class="bar"><i class="after" style="width:100%"></i><b>10/10</b></div></td></tr>
-    <tr><td>glm-5.3-flash</td><td><div class="bar"><i class="says" style="width:100%"></i><b>10/10</b></div></td><td><div class="bar"><i class="before" style="width:100%"></i><b>10/10</b></div></td><td><div class="bar"><i class="after" style="width:90%"></i><b>9/10</b></div></td></tr>
+    <tr><th>Model on ai&amp;</th><th>Said it was sure</th><th>Was right</th><th>Right with our checks</th></tr>
+    <tr><td>gemma-4-31b-it</td><td>7</td><td class="wrong">5</td><td class="right">10</td></tr>
+    <tr><td>gpt-oss-120b</td><td>7</td><td class="wrong">7</td><td class="right">10</td></tr>
+    <tr><td>qwen3.6-27b</td><td>10</td><td class="wrong">9</td><td class="right">10</td></tr>
+    <tr><td>deepseek-v4.1-flash</td><td>10</td><td>10</td><td class="right">10</td></tr>
+    <tr><td>glm-5.3-flash</td><td>10</td><td>10</td><td class="wrong">9</td></tr>
   </table></div>
-  <p class="mute">One run each, all on ai&amp; Inference. Bare scores move a little between runs. <a href="out/report.html">Open the full report →</a></p>
+  <p class="small">One run each. Scores without the checks move a little between runs. <a href="out/report.html">Every list, side by side</a></p>
 </section>
 
 <section class="slide">
-  <div class="kicker">What's next</div>
-  <h2>What the harness still can't see.</h2>
-  <div class="row two">
-    <div class="card tint-rose"><h3 style="color:var(--rose-ink)">The one it missed</h3><p>One model read “eggs: half a dozen” and wrote the wrong stock. The quote was real, so the check passed. Converting pantry notes is still on the model.</p></div>
-    <ul>
-      <li>Check pantry conversions in code too</li>
-      <li>A photo of the fridge instead of notes</li>
-      <li>When a note is vague, ask the human</li>
-    </ul>
-  </div>
-  <p><b>The model reads. Code checks. Code counts.</b></p>
+  <h2>The one we lost</h2>
+  <p>glm read “eggs: half a dozen” and wrote down the wrong number. The quote was real, so it passed. We check that the model copied correctly, not that it converted correctly.</p>
+  <p>With another evening: move those conversions into code, take a photo of the fridge instead of typing notes, and ask the person when a note is too vague.</p>
+  <p class="small">github.com/AdeDeepFishing/grocery-harness</p>
 </section>
 
-<footer><span>Grocery harness</span><span id="count"></span></footer>
+<footer id="count"></footer>
 
 <script>
   const slides = [...document.querySelectorAll(".slide")];

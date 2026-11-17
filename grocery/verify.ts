@@ -100,6 +100,7 @@ export function score(expected: ListItem[], got: ListItem[]): { correct: boolean
   const want = new Map(expected.map((e) => [normName(e.item), e]));
   const have = new Map<string, ListItem>();
   for (const g of got) {
+    if (!(Number(g.qty) > 0)) continue; // "buy 0" is the same as not listing it
     const key = normName(g.item);
     const prev = have.get(key);
     have.set(key, prev ? { ...prev, qty: prev.qty + Number(g.qty) } : { ...g, qty: Number(g.qty) });

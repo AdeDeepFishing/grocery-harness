@@ -14,7 +14,7 @@ export const MODEL = process.env.MODEL ?? "google/gemma-4-31b-it";
 type Messages = ChatCompletionMessageParam[];
 
 async function ask(messages: Messages): Promise<string> {
-  const response = await client.chat.completions.create({ model: MODEL, messages, max_tokens: 6000 });
+  const response = await client.chat.completions.create({ model: MODEL, messages, max_tokens: 20000 });
   const reply = response.choices[0].message.content ?? "";
   messages.push({ role: "assistant", content: reply });
   return reply;
@@ -104,7 +104,10 @@ export function startLedger(c: Case): Messages {
 export async function writeLedger(messages: Messages): Promise<Ledger | null> {
   try {
     const parsed = parseJson(await ask(messages));
-    return Array.isArray(parsed.lines) ? (parsed as Ledger) : null;
+    if (!Array.isArray(parsed.lines)) return null;
+    // Models write "no pantry note" three ways: null, {quote: null}, {quote: ""}. Treat them the same.
+    for (const line of parsed.lines) if (!line.have || !line.have.quote || line.have.quote === "null") line.have = null;
+    return parsed as Ledger;
   } catch {
     return null;
   }

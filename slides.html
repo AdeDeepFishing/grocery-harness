@@ -35,12 +35,16 @@
   td:first-child { text-align:left; padding-left:0; font:clamp(15px,1.6vw,24px) ui-monospace,"SF Mono",Menlo,monospace; }
   td.right { font-weight:600; }
   .wrap { overflow-x:auto; }
+  .pic { position:absolute; right:8vw; bottom:11vh; height:38vh; width:auto; }
+  .inline-pic { display:block; height:24vh; width:auto; margin-top:3vh; }
+  .narrow p { max-width:44ch; }
   footer { position:fixed; right:8vw; bottom:4vh; color:var(--mute); font-size:clamp(12px,1.1vw,16px); font-variant-numeric:tabular-nums; }
   a { color:inherit; }
   @media (max-width:760px) {
     body { overflow:auto; } .slide { position:static; display:flex; min-height:100vh; padding:32px 16px 48px; }
     .cols { grid-template-columns:1fr; gap:28px; } .cols > * + * { border-left:0; padding-left:0; border-top:1px solid var(--line); padding-top:28px; }
     footer { display:none; } table { min-width:520px; }
+    .pic { position:static; height:180px; align-self:flex-start; } .inline-pic { height:150px; }
   }
 </style>
 </head>
@@ -49,6 +53,7 @@
 <section class="slide on">
   <h1>We asked a model to write our grocery list. Then we asked if it was sure.</h1>
   <p class="small">Yanwen Chen and Beichun Qi · +81 Builders, 17 November 2026</p>
+  <img class="pic" src="img/teacher.png" alt="A teacher marking test papers">
 </section>
 
 <section class="slide">
@@ -58,7 +63,7 @@
 <pre>Pancakes
 - <mark>200 g flour</mark>
 - 2 eggs
-- milk, 300 ml
+- 300 ml milk
 
 Banana bread
 - <mark>flour, 250 g</mark>
@@ -90,6 +95,7 @@ cream     not on the list</span></pre></div>
     <div>
       <p class="label">“Is this list completely correct?”</p>
       <blockquote>“Yes. All quantities were calculated by subtracting pantry stocks from total requirements.”</blockquote>
+      <img class="inline-pic" src="img/sure.png" alt="A man looking very pleased with himself">
     </div>
   </div>
   <p>Over ten meal plans it said it was sure seven times. It was right five times.</p>
@@ -140,11 +146,12 @@ have
   <p class="small">One run each. Scores without the checks move a little between runs. <a href="out/report.html">Every list, side by side</a></p>
 </section>
 
-<section class="slide">
+<section class="slide narrow">
   <h2>The one we lost</h2>
   <p>glm read “eggs: half a dozen” and wrote down the wrong number. The quote was real, so it passed. We check that the model copied correctly, not that it converted correctly.</p>
   <p>With another evening: move those conversions into code, take a photo of the fridge instead of typing notes, and ask the person when a note is too vague.</p>
-  <p class="small">github.com/AdeDeepFishing/grocery-harness</p>
+  <p class="small">github.com/AdeDeepFishing/grocery-harness · Illustrations: いらすとや</p>
+  <img class="pic" src="img/fridge.png" alt="A person looking into a fridge">
 </section>
 
 <footer id="count"></footer>

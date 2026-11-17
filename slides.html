@@ -38,11 +38,13 @@
   .pic { position:absolute; right:8vw; bottom:11vh; height:38vh; width:auto; }
   .inline-pic { display:block; height:24vh; width:auto; margin-top:3vh; }
   .narrow p { max-width:44ch; }
+  .cols.three { grid-template-columns:1.25fr .95fr 1.1fr; gap:3vw; } .cols.three > * + * { padding-left:3vw; }
+  .three pre { font-size:clamp(13px,1.35vw,21px); } .three blockquote { font-size:clamp(19px,2.2vw,34px); } .three .inline-pic { height:20vh; }
   footer { position:fixed; right:8vw; bottom:4vh; color:var(--mute); font-size:clamp(12px,1.1vw,16px); font-variant-numeric:tabular-nums; }
   a { color:inherit; }
   @media (max-width:760px) {
     body { overflow:auto; } .slide { position:static; display:flex; min-height:100vh; padding:32px 16px 48px; }
-    .cols { grid-template-columns:1fr; gap:28px; } .cols > * + * { border-left:0; padding-left:0; border-top:1px solid var(--line); padding-top:28px; }
+    .cols, .cols.three { grid-template-columns:1fr; gap:28px; } .cols > * + *, .cols.three > * + * { border-left:0; padding-left:0; border-top:1px solid var(--line); padding-top:28px; }
     footer { display:none; } table { min-width:520px; }
     .pic { position:static; height:180px; align-self:flex-start; } .inline-pic { height:150px; }
   }
@@ -57,14 +59,24 @@
 </section>
 
 <section class="slide">
-  <h2>What we got back</h2>
-  <div class="cols">
-    <div><p class="label">gemma-4-31b-it, one call</p>
-<pre>sugar     350 g
-egg       1
-banana    1
-<span class="wrong">flour     not on the list
-cream     not on the list</span></pre></div>
+  <h2>What we gave it, and what we got back</h2>
+  <div class="cols three">
+    <div><p class="label">In: five recipes and our kitchen notes</p>
+<pre>Pancakes       <mark>200 g flour</mark>
+Banana bread   <mark>flour, 250 g</mark>
+Shortbread     <mark>300 g flour</mark>
+… 18 more lines
+
+Kitchen notes
+<mark>flour: 1 kg bag, half used</mark></pre>
+      <p class="small" style="margin-top:2.4vh">Needs 750 g, has 500 g.<br>Should buy 250 g.</p>
+    </div>
+    <div><p class="label">Out: gemma-4-31b-it, one call</p>
+<pre>sugar    350 g
+egg      1
+banana   1
+<span class="wrong">flour    not on the list
+cream    not on the list</span></pre></div>
     <div>
       <p class="label">“Is this list completely correct?”</p>
       <blockquote>“Yes. All quantities were calculated by subtracting pantry stocks from total requirements.”</blockquote>

@@ -57,33 +57,6 @@
 </section>
 
 <section class="slide">
-  <h2>What we gave it</h2>
-  <div class="cols">
-    <div><p class="label">A week of baking, five recipes</p>
-<pre>Pancakes
-- <mark>200 g flour</mark>
-- 2 eggs
-- 300 ml milk
-
-Banana bread
-- <mark>flour, 250 g</mark>
-- 3 bananas
-
-Shortbread
-- <mark>300 g flour</mark>
-- butter, 200 g</pre></div>
-    <div><p class="label">What's in the kitchen</p>
-<pre>- <mark>flour: 1 kg bag, half used</mark>
-- eggs: 10
-- sugar: a little
-- bananas: 2
-- baking powder: 1 tin</pre>
-      <p style="margin-top:4vh">Flour: 750 g needed, 500 g at home.<br>The list should say 250 g.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide">
   <h2>What we got back</h2>
   <div class="cols">
     <div><p class="label">gemma-4-31b-it, one call</p>
@@ -112,6 +85,46 @@ cream     not on the list</span></pre></div>
 </section>
 
 <section class="slide">
+  <h2>Five models, ten meal plans each</h2>
+  <div class="wrap"><table>
+    <tr><th>Model on ai&amp;</th><th>Said it was sure</th><th>Was right</th><th>Right with our checks</th></tr>
+    <tr><td>gemma-4-31b-it</td><td>7</td><td class="wrong">5</td><td class="right">10</td></tr>
+    <tr><td>gpt-oss-120b</td><td>7</td><td class="wrong">7</td><td class="right">10</td></tr>
+    <tr><td>qwen3.6-27b</td><td>10</td><td class="wrong">9</td><td class="right">10</td></tr>
+    <tr><td>deepseek-v4.1-flash</td><td>10</td><td>10</td><td class="right">10</td></tr>
+    <tr><td>glm-5.3-flash</td><td>10</td><td>10</td><td class="wrong">9</td></tr>
+  </table></div>
+  <p class="small">One run each. Scores without the checks move a little between runs. <a href="out/report.html">Every list, side by side</a></p>
+</section>
+
+<section class="slide">
+  <h2>What we gave it</h2>
+  <div class="cols">
+    <div><p class="label">A week of baking, five recipes</p>
+<pre>Pancakes
+- <mark>200 g flour</mark>
+- 2 eggs
+- 300 ml milk
+
+Banana bread
+- <mark>flour, 250 g</mark>
+- 3 bananas
+
+Shortbread
+- <mark>300 g flour</mark>
+- butter, 200 g</pre></div>
+    <div><p class="label">What's in the kitchen</p>
+<pre>- <mark>flour: 1 kg bag, half used</mark>
+- eggs: 10
+- sugar: a little
+- bananas: 2
+- baking powder: 1 tin</pre>
+      <p style="margin-top:4vh">Flour: 750 g needed, 500 g at home.<br>The list should say 250 g.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
   <h2>What the code checks</h2>
   <div class="cols">
     <div><p class="label">What the model hands in for flour</p>
@@ -131,19 +144,6 @@ have
     </ul>
   </div>
   <p class="small">None of these needs the right answer, only the original text.</p>
-</section>
-
-<section class="slide">
-  <h2>Five models, ten meal plans each</h2>
-  <div class="wrap"><table>
-    <tr><th>Model on ai&amp;</th><th>Said it was sure</th><th>Was right</th><th>Right with our checks</th></tr>
-    <tr><td>gemma-4-31b-it</td><td>7</td><td class="wrong">5</td><td class="right">10</td></tr>
-    <tr><td>gpt-oss-120b</td><td>7</td><td class="wrong">7</td><td class="right">10</td></tr>
-    <tr><td>qwen3.6-27b</td><td>10</td><td class="wrong">9</td><td class="right">10</td></tr>
-    <tr><td>deepseek-v4.1-flash</td><td>10</td><td>10</td><td class="right">10</td></tr>
-    <tr><td>glm-5.3-flash</td><td>10</td><td>10</td><td class="wrong">9</td></tr>
-  </table></div>
-  <p class="small">One run each. Scores without the checks move a little between runs. <a href="out/report.html">Every list, side by side</a></p>
 </section>
 
 <section class="slide narrow">

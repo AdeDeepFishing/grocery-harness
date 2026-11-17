@@ -4,7 +4,7 @@ Open `slides.html` full screen. Arrow keys move. Have `out/report.html` open in 
 
 ## Slide 1 — title (0:00–0:15)
 
-Hi, we're [NAME] and [NAME]. Our one line: don't let the agent mark its own homework.
+Hi, we're Yanwen Chen and Beichun Qi. Our one line: don't let the agent mark its own homework.
 
 ## Slide 2 — the job (0:15–0:40)
 
